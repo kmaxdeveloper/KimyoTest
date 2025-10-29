@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Kimyo Test</string>
+    <string name="company_name">Kmax Programmers</string>
+    <string name="company_name_with_symbol">Kmax Programmers ®</string>
+
+    <!-- Ads-->
+    <string name="interstitialAdsUnitId">ca-app-pub-4664801446868642/5382958969</string>
+    <string name="bannerAdsUnitId">ca-app-pub-4664801446868642/4780323731</string>
+    <string name="bannerAdsUnitIdYandex">ee</string>
+    <string name="interstitialAdsUnitIdYandex">R-M-17326172-1</string>
+    <!-- Ads-->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="PrivacyPolicy">Privacy Policy</string>
+    <string name="AdminConnect">Admin bilan aloqa</string>
+    <string name="AdminGmail">komilcoder7@gmail.com</string>
+    <string name="AdminTelegram">\@komildeveloper</string>
+    <string name="TestCompleted">Test Yakunlandi !</string>
+    <string name="CorrectAnswer">To\'g\'ri javob : </string>
+    <string name="WrongAnswer">Noto\'g\'ri javob : </string>
+    <string name="welcome_1">Hush Kelibsiz !</string>
+    <string name="welcome_2">Kimyodan Testlar</string>
+    <string name="welcome_3">Kimyoviy elementlar haqida ma\'lumotlar</string>
+    <string name="welcome_4">Kimyoga oid testlar to\'plami</string>
+    <string name="welcome_5">Test yeching va \n O\'z bilimingizni sinab ko\'ring</string>
+    <string name="message">Message</string>
+    <string name="update">Update</string>
+    <string name="update_available">Yangi yangilanish mavjud. \n Dasturni yangilang !</string>
+    <string name="menuHome">Home</string>
+    <string name="menuContent">Content</string>
+    <string name="menuSettings">Settings</string>
+    <string name="bookSize">Kitob hajmi :</string>
+    <string name="bookRelease">Kitob yili : </string>
+    <string name="bookTitle">Book Title : </string>
+    <string name="contentWarningInfo">Bu Kontent Sizning Dastur Versiyangizda ishlamaydi . Dasturnni yangilang !</string>
+    <string name="books">Maktab Darsliklari</string>
+
+    <string name="person_name">Person Name</string>
+    <string name="personBirth"> Tug\'ilgan yil : </string>
+    <string name="personDeath"> Vafot etgan yil : </string>
+    <string name="personRegion"> Mamlakati : </string>
+    <string name="personType"> Faoliyati : </string>
+    <string name="personAbout"> Tarjimai hol : </string>
+    <string name="personWorks"> Yozgan Asarlari : </string>
+    <string name="personAwards"> Olgan Mukofotlari : </string>
+
+    <string name="default_text">en</string>
+    <string name="change_test_mode_hint">Test rejimini keyinchalik Settings bo\'limi orqali o\'zgartishingiz mumkin.</string>
+    <string name="testSelectMode">Test Rejimini tanlang :</string>
+    <string name="restoreHeart">Urinishlarni tiklash uchun Reklamani tomosha qilishingiz mumkin</string>
+    <string name="watchAd">Reklama ko\'rish</string>
+    <string name="attempsIsOver">Urinishlar tugadi!</string>
+    <string name="exit">Chiqish</string>
+</resources>

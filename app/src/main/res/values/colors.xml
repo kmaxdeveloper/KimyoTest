@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#088FFA</color>
+    <color name="silver">#5F6564</color>
+    <color name="green">#2FFF00</color>
+    <color name="red">#FF0000</color>
+    <color name="yellow">#FF9800</color>
+    <color name="white_yellow">#E6C107</color>
+    <color name="white_blue">#00FFFF</color>
+    <color name="whiteBlue">#02E6FB</color>
+    <color name="appTheme">@color/silver</color>
+    <color name="color_winter">#00EAFF</color>
+    <color name="color_winter_2">#00FFCC</color>
+    <color name="color_autumn">#FFC000</color>
+    <color name="color_spring">#1FD326</color>
+    <color name="color_summer">#FFE600</color>
+    <color name="color_item_menu_default">#4CAF50</color>
+    <color name="color_splash">#D7E8B475</color>
+    <color name="color_app">#B8BCC5</color>
+</resources>

@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Kimyo Test</string>
+    <string name="company_name">Kmax Programmers</string>
+    <string name="company_name_with_symbol">Kmax Programmers ®</string>
+
+    <!-- Ads-->
+    <string name="interstitialAdsUnitId">ca-app-pub-4664801446868642/5382958969</string>
+    <string name="bannerAdsUnitId">ca-app-pub-4664801446868642/4780323731</string>
+    <string name="bannerAdsUnitIdYandex">ee</string>
+    <string name="interstitialAdsUnitIdYandex">R-M-17326172-1</string>
+    <!-- Ads-->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="PrivacyPolicy">Privacy Policy</string>
+    <string name="AdminConnect">Admin bilan aloqa</string>
+    <string name="AdminGmail">komilcoder7@gmail.com</string>
+    <string name="AdminTelegram">\@komildeveloper</string>
+    <string name="TestCompleted">Test Completed !</string>
+    <string name="CorrectAnswer">Correct answers : </string>
+    <string name="WrongAnswer">Wrong answers : </string>
+    <string name="welcome_1">Welcome !</string>
+    <string name="welcome_2">Chemistry Tests</string>
+    <string name="welcome_3">Kimyoga oid testlar to\'plami</string>
+    <string name="welcome_4">Chemistry test collection</string>
+    <string name="welcome_5">Test your knowledge !</string>
+    <string name="message">Message</string>
+    <string name="update">Update</string>
+    <string name="update_available">New update is available. \n Update the software!</string>
+    <string name="menuHome">Home</string>
+    <string name="menuContent">Content</string>
+    <string name="menuSettings">Settings</string>
+    <string name="bookSize">Book Size : </string>
+    <string name="bookRelease">Book Release : </string>
+    <string name="bookTitle">Book Title : </string>
+    <string name="contentWarningInfo">Bu Kontent Sizning Dastur Versiyangizda ishlamaydi . Dasturnni yangilang !</string>
+    <string name="books">Edu Books</string>
+    <string name="person_name">Person Name</string>
+    <string name="personBirth"> Birth Data : </string>
+    <string name="personDeath"> Death Date : </string>
+    <string name="personRegion"> Region : </string>
+    <string name="personType"> Category : </string>
+    <string name="personAbout"> About : </string>
+    <string name="personWorks"> Works : </string>
+    <string name="personAwards"> Awards : </string>
+
+    <string name="default_text">uz</string>
+    <string name="change_test_mode_hint">You can change the test mode later via the Settings section.</string>
+    <string name="testSelectMode">Select test mode:</string>
+    <string name="restoreHeart">Watch an ad to restore your attempts.</string>
+    <string name="watchAd">Watch ADS</string>
+    <string name="attempsIsOver">No attempts remaining!</string>
+    <string name="exit">Exit</string>
+</resources>
