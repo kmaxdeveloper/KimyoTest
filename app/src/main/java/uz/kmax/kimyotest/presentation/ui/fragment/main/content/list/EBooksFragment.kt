@@ -1,0 +1,4 @@
+package uz.kmax.kimyotest.presentation.ui.fragment.main.content.list
+
+class EBooksFragment {
+}
