@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="360dp"
@@ -36,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
             android:textSize="24sp"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:fontFamily="@font/madimi"
             android:text="Kitob Qurilmadan topilmadi" />
         <androidx.appcompat.widget.AppCompatTextView
@@ -48,7 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
             android:textSize="24sp"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:fontFamily="@font/madimi"
             android:text="Kitob yuklab olinsinmi ?" />
         <androidx.appcompat.widget.AppCompatTextView
@@ -60,7 +61,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
             android:textSize="24sp"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:fontFamily="@font/madimi"
             android:text="Kitob Hajmi : 3.2 MB" />
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -78,7 +79,7 @@
                 android:padding="15dp"
                 android:background="@drawable/style_btn"
                 android:layout_margin="8dp"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_height="65dp"
                 android:text="Yuklash"/>
             <androidx.appcompat.widget.AppCompatButton
@@ -86,7 +87,7 @@
                 android:layout_width="125dp"
                 android:layout_height="65dp"
                 android:background="@drawable/style_btn"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:text="Bekor qilish"
                 android:layout_margin="8dp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -115,7 +116,7 @@
                 app:layout_constraintBottom_toTopOf="@id/progressDownload"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="Yuklanmoqda....."
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/progressPercentDownload"
@@ -124,7 +125,7 @@
                 app:layout_constraintBottom_toTopOf="@id/progressDownload"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="20 %"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"/>
             <ProgressBar
                 android:id="@+id/progressDownload"

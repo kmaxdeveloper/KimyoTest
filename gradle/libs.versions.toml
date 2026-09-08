@@ -1,5 +1,5 @@
 [versions]
-agp = "8.10.1"
+agp = "8.13.2"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -10,9 +10,11 @@ material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 google-services = "4.4.2"
-hiltVersion = "2.50"
+hiltVersion = "2.52"
 googleGmsGoogleServices = "4.4.3"
 firebaseDatabase = "22.0.0"
+firebaseCrashlyticsGradle = "3.0.3"
+firebaseCrashlytics = "19.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,10 +28,12 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 hilt-android = { group = "com.google.dagger", name = "hilt-android" , version.ref = "hiltVersion"}
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler" , version.ref = "hiltVersion"}
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsGradle" }
 

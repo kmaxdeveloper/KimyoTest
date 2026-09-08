@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="?attr/android:windowBackground"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="?attr/colorSurface"
         app:cardCornerRadius="16dp"
         app:cardElevation="16dp">
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:text="Savol"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/madimi"
                 android:text="00:00"/>
@@ -175,7 +175,7 @@
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:layout_weight="4"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="?attr/colorSurface"
         app:cardCornerRadius="16dp"
         android:layout_marginBottom="10dp">
 
@@ -203,7 +203,7 @@
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:fontFamily="@font/pre_hear_regular"
                     android:layout_marginStart="5dp" />
 
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="variant A"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -235,7 +235,7 @@
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:fontFamily="@font/pre_hear_regular"
                     android:layout_marginStart="5dp"/>
 
@@ -245,7 +245,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="variant A"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -267,7 +267,7 @@
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:fontFamily="@font/pre_hear_regular"
                     android:layout_marginStart="5dp" />
 
@@ -277,7 +277,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="variant A"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -299,7 +299,7 @@
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:fontFamily="@font/pre_hear_regular"
                     android:layout_marginStart="5dp" />
 
@@ -309,7 +309,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="variant D"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -319,25 +319,11 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/bannerAds"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        ads:adUnitId="@string/bannerAdsUnitId">
-    </com.google.android.gms.ads.AdView>
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="5dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/back"
@@ -350,7 +336,7 @@
             android:drawableStart="@drawable/image_back_32px"
             android:background="@drawable/style_btn"
             android:text="@string/back"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -364,7 +350,7 @@
             android:drawableEnd="@drawable/image_finish_32px"
             android:background="@drawable/style_btn"
             android:text="@string/finish"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -378,8 +364,37 @@
             android:text="@string/next"
             android:drawableEnd="@drawable/image_next_32px"
             android:padding="10dp"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="18sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurfaceVariant"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:padding="4dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="?attr/colorSurface"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:strokeColor="?attr/colorOutline"
+            app:strokeWidth="1dp">
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/bannerAds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/bannerAdsUnitId" />
+
+        </com.google.android.material.card.MaterialCardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

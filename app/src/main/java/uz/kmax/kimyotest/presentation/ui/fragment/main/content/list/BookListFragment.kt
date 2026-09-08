@@ -2,6 +2,8 @@ package uz.kmax.kimyotest.presentation.ui.fragment.main.content.list
 
 import android.content.Context
 import android.os.Build
+import android.os.Bundle
+import android.view.View
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,8 +44,8 @@ class BookListFragment() : BaseFragmentWC<FragmentBookListBinding>(FragmentBookL
     lateinit var adsManager: AdsManager
 
     override fun onViewCreated() {
-        val window = requireActivity().window
-        window.statusBarColor = this.resources.getColor(R.color.appTheme)
+        val window = activity?.window
+        window?.statusBarColor = this.resources.getColor(R.color.appTheme)
         firebaseManager = FirebaseManager()
         language = shared.getLanguage().toString()
         getBookListData()
@@ -54,47 +56,80 @@ class BookListFragment() : BaseFragmentWC<FragmentBookListBinding>(FragmentBookL
         adsManager.init()
 
         binding.back.setOnClickListener {
-            startMainFragment(MenuFragment())
+            val currentActivity = activity ?: return@setOnClickListener
+            adsManager.setOnAdDismissListener {
+                if (isAdded && !isStateSaved) {
+                    startMainFragment(MenuFragment())
+                }
+            }
+            adsManager.showAds(currentActivity, true) { showed ->
+                if (!showed) {
+                    if (isAdded && !isStateSaved) {
+                        startMainFragment(MenuFragment())
+                    }
+                }
+            }
         }
 
         onFragmentBackPressed {
-            startMainFragment(MenuFragment())
+            val currentActivity = activity ?: return@onFragmentBackPressed
+            adsManager.setOnAdDismissListener {
+                if (isAdded && !isStateSaved) {
+                    startMainFragment(MenuFragment())
+                }
+            }
+            adsManager.showAds(currentActivity, true) { showed ->
+                if (!showed) {
+                    if (isAdded && !isStateSaved) {
+                        startMainFragment(MenuFragment())
+                    }
+                }
+            }
         }
 
         adsManager.setOnAdDismissListener {
-            startMainFragment(BookFragment(bookPath, bookName))
+            if (isAdded && !isStateSaved && bookPath.isNotEmpty()) {
+                startMainFragment(BookFragment.newInstance(bookPath, bookName))
+            }
         }
 
         adapter.setOnItemSendListener {
-            val path = FindFileFromDevice().findPdfFile("${it.bookLocation}.pdf")
-            if (path.isNotEmpty()){
-                bookPath = path
+            val fileName = "${it.bookLocation}.pdf"
+            val internalFile = File(requireContext().getExternalFilesDir(null), "Kitoblar/$fileName")
+            
+            if (internalFile.exists()) {
+                bookPath = internalFile.absolutePath
                 bookName = it.bookName
-                adsManager.showAds(requireActivity()){book->
-                    startMainFragment(BookFragment(path, it.bookName))
+                adsManager.showAds(requireActivity()) { showed ->
+                    if (!showed) {
+                        if (isAdded && !isStateSaved) {
+                            startMainFragment(BookFragment.newInstance(bookPath, it.bookName))
+                        }
+                    }
                 }
-            }else{
-                dialog.show(requireContext(),it.bookSize)
-                dialog.setOnDownloadNowListener {type->
-                    when(type){
-                        1->{
-                            downloadAndSavePDF(requireContext(),"${it.bookLocation}.pdf","KimyoTest/Content/SchoolBooks/Book/${it.bookLocation}.pdf"){fileUri->
-                                if (fileUri.isNotEmpty()){
+            } else {
+                dialog.show(requireContext(), it.bookSize)
+                dialog.setOnDownloadNowListener { type ->
+                    when(type) {
+                        1 -> {
+                            downloadAndSavePDF(requireContext(), fileName, "KimyoTest/Content/SchoolBooks/Book/$fileName") { fileUri ->
+                                if (fileUri.isNotEmpty()) {
                                     bookPath = fileUri
                                     dialog.setDownloadInfo("✅ Yuklab olindi !")
-                                    dialog.setType(2,"✅ Kitobni ochish")
-                                }else{
-                                    dialog.setType(1,"Qayta yuklash")
+                                    dialog.setType(2, "✅ Kitobni ochish")
+                                } else {
+                                    dialog.setType(1, "Qayta yuklash")
                                     dialog.setDownloadInfo("Xatolik yuz berdi . Kitobni qayta yuklang !")
                                 }
                             }
                         }
-                        2->{
+                        2 -> {
                             dialog.dismissDialog()
-                            startMainFragment(BookFragment(bookPath, it.bookName))
-                            //Toast.makeText(requireContext(), bookPath, Toast.LENGTH_SHORT).show()
+                            if (isAdded && !isStateSaved) {
+                                startMainFragment(BookFragment.newInstance(bookPath, it.bookName))
+                            }
                         }
-                        else->{
+                        else -> {
                             Toast.makeText(requireContext(), "Xatolik yuz berdi !", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -117,13 +152,9 @@ class BookListFragment() : BaseFragmentWC<FragmentBookListBinding>(FragmentBookL
                 dialog.downloadProgress(progress)
             }
             .addOnSuccessListener {
-                // 📌 Android versiyasiga qarab saqlash
-                val savedUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    SaveFiles.saveFileToDownloads(context, fileName, tempFile)
-                } else {
-                    SaveFiles.saveFileToDownloadsLegacy(fileName, tempFile)
-                }
-                onComplete(savedUri)
+                // 📌 Ilova ichki xotirasiga saqlash (Permission denied xatosini oldini oladi)
+                val savedPath = SaveFiles.saveFileInternally(context, fileName, tempFile)
+                onComplete(savedPath)
             }
             .addOnFailureListener { exception ->
                 dialog.setType(1,"Xatolik yuz berdi !")
@@ -133,10 +164,33 @@ class BookListFragment() : BaseFragmentWC<FragmentBookListBinding>(FragmentBookL
     }
 
     private fun getBookListData() {
-        firebaseManager.observeList("Content/$language/SchoolBooks", BaseBookData::class.java) {
-            if (it != null) {
-                adapter.setItems(dataFilter.filterBook(it))
-            }
+        binding.shimmerView.startShimmer()
+        binding.shimmerView.visibility = View.VISIBLE
+        binding.bookRecycleView.visibility = View.GONE
+        
+        val startTime = System.currentTimeMillis()
+        
+        firebaseManager.readList("Content/$language/SchoolBooks", BaseBookData::class.java) {
+            val timePassed = System.currentTimeMillis() - startTime
+            val delay = if (timePassed < 3000) 3000 - timePassed else 0L
+
+            android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                if (isAdded) {
+                    binding.shimmerView.stopShimmer()
+                    binding.shimmerView.visibility = View.GONE
+                    binding.bookRecycleView.visibility = View.VISIBLE
+                    
+                    if (it != null) {
+                        adapter.setItems(dataFilter.filterBook(it))
+                    }
+                }
+            }, delay)
         }
+    }
+
+    override fun onDestroyView() {
+        adsManager.setOnAdDismissListener {}
+        adsManager.setOnAdClickListener {}
+        super.onDestroyView()
     }
 }

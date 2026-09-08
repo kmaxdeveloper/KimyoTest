@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/colorSurface">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/whiteBlue"
+        android:background="?attr/colorSurface"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,11 +26,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/whiteBlue"
+            android:background="?attr/colorSurface"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="Tarixiy Shaxslar"
-            app:titleTextColor="@color/black" />
+            app:titleTextColor="?attr/colorOnSurface" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -50,7 +50,7 @@
                 android:layout_width="180dp"
                 android:layout_height="180dp"
                 android:padding="8dp"
-                app:srcCompat="@color/white" />
+                app:srcCompat="?attr/colorOutline" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/personName"
@@ -59,7 +59,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/person_name"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:padding="4dp"
                 android:textSize="24sp" />
 
@@ -81,14 +81,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:text="@string/personBirth"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/personBirth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/default_text"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="24sp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -110,14 +110,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:text="@string/personDeath"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/personDeath"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/default_text"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="24sp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -140,14 +140,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:text="@string/personType"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/personType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/default_text"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="20sp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -170,7 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:text="@string/personAbout"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/personAbout"
@@ -179,7 +179,7 @@
                     android:text="@string/default_text"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="20sp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -202,7 +202,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:text="@string/personWorks"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/personWorks"
@@ -211,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/default_text"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="20sp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -234,14 +234,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:text="@string/personAwards"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/personAwards"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/default_text"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:textSize="20sp"/>

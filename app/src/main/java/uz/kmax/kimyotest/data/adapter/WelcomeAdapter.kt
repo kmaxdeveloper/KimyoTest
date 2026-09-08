@@ -17,6 +17,22 @@ class WelcomeAdapter(val ctx: Context) : RecyclerView.Adapter<WelcomeAdapter.Vie
         R.raw.checking_iq5
     )
 
+    private val titles = intArrayOf(
+        R.string.welcome_1,
+        R.string.welcome_2,
+        R.string.welcome_3,
+        R.string.welcome_4,
+        R.string.welcome_5
+    )
+
+    private val descriptions = intArrayOf(
+        R.string.welcome_1_desc,
+        R.string.welcome_2_desc,
+        R.string.welcome_3_desc,
+        R.string.welcome_4_desc,
+        R.string.welcome_5_desc
+    )
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.item_welcome, parent, false)
         return ViewHolder(view)
@@ -24,6 +40,8 @@ class WelcomeAdapter(val ctx: Context) : RecyclerView.Adapter<WelcomeAdapter.Vie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.animation.setAnimation(images[position])
+        holder.title.setText(titles[position])
+        holder.description.setText(descriptions[position])
     }
 
     override fun getItemCount(): Int {
@@ -31,10 +49,8 @@ class WelcomeAdapter(val ctx: Context) : RecyclerView.Adapter<WelcomeAdapter.Vie
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var animation: LottieAnimationView
-
-        init {
-            animation = itemView.findViewById(R.id.lottieAnimation)
-        }
+        var animation: LottieAnimationView = itemView.findViewById(R.id.lottieAnimation)
+        var title: android.widget.TextView = itemView.findViewById(R.id.welcomeTitle)
+        var description: android.widget.TextView = itemView.findViewById(R.id.welcomeDesc)
     }
 }

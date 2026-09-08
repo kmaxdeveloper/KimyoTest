@@ -1,6 +1,6 @@
 package uz.kmax.kimyotest.presentation.ui.fragment.main
 
-import android.graphics.Color
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
@@ -19,11 +19,16 @@ import uz.kmax.kimyotest.databinding.FragmentMenuBinding
 import uz.kmax.kimyotest.presentation.ui.fragment.other.AdminFragment
 import uz.kmax.kimyotest.presentation.ui.fragment.other.PrivacyFragment
 import uz.kmax.kimyotest.presentation.ui.fragment.tool.SettingsFragment
+import uz.kmax.kimyotest.presentation.ui.fragment.main.arcade.GamesListFragment
+import uz.kmax.kimyotest.data.ads.AdsManager
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MenuFragment : BaseFragmentWC<FragmentMenuBinding>(FragmentMenuBinding::inflate) {
     private lateinit var toggleBar: ActionBarDrawerToggle
+
+    @Inject
+    lateinit var adsManager: AdsManager
 
     @Inject
     lateinit var shared: SharedPref
@@ -32,8 +37,14 @@ class MenuFragment : BaseFragmentWC<FragmentMenuBinding>(FragmentMenuBinding::in
         val window = requireActivity().window
         window.statusBarColor = this.resources.getColor(R.color.appTheme)
 
-        InnerFragmentController.init(R.id.innerContainer, requireActivity().supportFragmentManager)
+        InnerFragmentController.init(R.id.innerContainer, childFragmentManager)
         replaceInnerFragment(TestListFragment())
+        
+        updateNavigationVisibility(adsManager.isAppOpenAdShowing())
+        
+        adsManager.setOnAppOpenAdStatusListener { isShowing ->
+            updateNavigationVisibility(isShowing)
+        }
 
         toggleBar = ActionBarDrawerToggle(
             requireActivity(),
@@ -60,6 +71,10 @@ class MenuFragment : BaseFragmentWC<FragmentMenuBinding>(FragmentMenuBinding::in
                     replaceInnerFragment(ContentFragment())
                     true
                 }
+                R.id.action_arcade -> {
+                    replaceInnerFragment(GamesListFragment())
+                    true
+                }
                 R.id.action_settings ->{
                     // Sozlamalar fragmentiga o'tish
                     replaceInnerFragment(SettingsFragment())
@@ -79,24 +94,29 @@ class MenuFragment : BaseFragmentWC<FragmentMenuBinding>(FragmentMenuBinding::in
                 }
 
                 R.id.ratingApp -> {
-                    val manager = ReviewManagerFactory.create(requireContext())
-                    val request = manager.requestReviewFlow()
-                    request.addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val reviewInfo = task.result
-                            val flow = manager.launchReviewFlow(requireActivity(), reviewInfo)
-                            flow.addOnCompleteListener { result ->
-                                if (result.isCanceled) {
-                                    toast("Dasturni baholash bekor qilindi !")
-                                } else if (result.isSuccessful) {
-                                    toast("Dastur baholandi !!!")
-                                } else if (result.isComplete) {
-                                    toast("Baholash tugatildi !")
+                    context?.let { ctx ->
+                        val manager = ReviewManagerFactory.create(ctx)
+                        val request = manager.requestReviewFlow()
+                        request.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val reviewInfo = task.result
+                                activity?.let { act ->
+                                    val flow = manager.launchReviewFlow(act, reviewInfo)
+                                    flow.addOnCompleteListener { result ->
+                                        if (!isAdded) return@addOnCompleteListener
+                                        if (result.isCanceled) {
+                                            toast("Dasturni baholash bekor qilindi !")
+                                        } else if (result.isSuccessful) {
+                                            toast("Dastur baholandi !!!")
+                                        } else if (result.isComplete) {
+                                            toast("Baholash tugatildi !")
+                                        }
+                                    }
                                 }
+                            } else {
+                                @ReviewErrorCode val reviewErrorCode =
+                                    (task.exception as ReviewException).errorCode
                             }
-                        } else {
-                            @ReviewErrorCode val reviewErrorCode =
-                                (task.exception as ReviewException).errorCode
                         }
                     }
                     closeDrawer()
@@ -118,7 +138,18 @@ class MenuFragment : BaseFragmentWC<FragmentMenuBinding>(FragmentMenuBinding::in
             true
         })
 
+        // TODO: Crashlytics testi uchun (uncomment qiling va ilovani ishga tushiring)
+        //throw RuntimeException("Test Crash for Crashlytics")
+    }
 
+    private fun updateNavigationVisibility(isAdShowing: Boolean) {
+        if (isAdShowing) {
+            binding.bottomNavigation.visibility = View.GONE
+            binding.toolbar.visibility = View.GONE
+        } else {
+            binding.bottomNavigation.visibility = View.VISIBLE
+            binding.toolbar.visibility = View.VISIBLE
+        }
     }
 
     private fun closeDrawer() {

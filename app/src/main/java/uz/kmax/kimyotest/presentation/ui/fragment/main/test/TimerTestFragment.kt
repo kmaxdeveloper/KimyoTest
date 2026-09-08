@@ -1,6 +1,7 @@
 package uz.kmax.kimyotest.presentation.ui.fragment.main.test
 
 import android.graphics.Color
+import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.Toast
@@ -26,8 +27,25 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 @AndroidEntryPoint
-class TimerTestFragment(private var testLocation: String, private var testCount: Int) :
-    BaseFragmentWC<FragmentTestTimerBinding>(FragmentTestTimerBinding::inflate) {
+class TimerTestFragment : BaseFragmentWC<FragmentTestTimerBinding>(FragmentTestTimerBinding::inflate) {
+
+    private var testLocation: String = ""
+    private var testCount: Int = 0
+
+    companion object {
+        private const val ARG_LOCATION = "test_location"
+        private const val ARG_COUNT = "test_count"
+
+        fun newInstance(testLocation: String, testCount: Int): TimerTestFragment {
+            val fragment = TimerTestFragment()
+            val args = Bundle()
+            args.putString(ARG_LOCATION, testLocation)
+            args.putInt(ARG_COUNT, testCount)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     private var testManager: TestManager = TestManager()
     private val testLinearLayouts by lazy { ArrayList<LinearLayoutCompat>() }
     private val variantList by lazy { ArrayList<AppCompatTextView>() }
@@ -50,6 +68,9 @@ class TimerTestFragment(private var testLocation: String, private var testCount:
     lateinit var sharedPref: SharedPref
 
     override fun onViewCreated() {
+        testLocation = arguments?.getString(ARG_LOCATION) ?: ""
+        testCount = arguments?.getInt(ARG_COUNT) ?: 0
+
         firebaseManager = FirebaseManager()
         language = sharedPref.getLanguage().toString()
         /** Reklama yuklash init qilish*/
@@ -61,17 +82,33 @@ class TimerTestFragment(private var testLocation: String, private var testCount:
 
         onFragmentBackPressed {
             timer?.cancel()
-            startMainFragment(MenuFragment())
+            handleExit()
+        }
+    }
+
+    private fun handleExit() {
+        val currentActivity = activity ?: return
+        adsManager.setOnAdDismissListener {
+            if (isAdded && !isStateSaved) {
+                startMainFragment(MenuFragment())
+            }
+        }
+        adsManager.showAds(currentActivity, true) { showed ->
+            if (!showed) {
+                if (isAdded && !isStateSaved) {
+                    startMainFragment(MenuFragment())
+                }
+            }
         }
     }
 
     private fun startTest(testLocation: String, testCount: Int) {
         val randomTest = random(testCount)
-        firebaseManager.observeList(
+        firebaseManager.readList(
             "Test/$language/$testLocation/V$randomTest",
             BaseTestData::class.java
         ) {
-            if (it != null) {
+            if (isAdded && !isStateSaved && it != null) {
                 val listTest = ArrayList<BaseTestData>()
                 listTest.addAll(it)
                 listTest.shuffle()
@@ -81,8 +118,10 @@ class TimerTestFragment(private var testLocation: String, private var testCount:
                 loadDataToView()
                 timeLeftInMillis = listTest.size.toLong() * 60 * 1000
                 timeCounter()
-            } else {
-                Toast.makeText(requireContext(), "Empty Test !", Toast.LENGTH_SHORT).show()
+            } else if (isAdded && !isStateSaved) {
+                context?.let { ctx ->
+                    Toast.makeText(ctx, "Empty Test !", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -94,6 +133,7 @@ class TimerTestFragment(private var testLocation: String, private var testCount:
     }
 
     private fun loadView() {
+        val ctx = context ?: return
         testStatus = ArrayList()
         for (i in 0 until binding.testCountLayout.size) {
             if (i < countTest) {
@@ -118,18 +158,22 @@ class TimerTestFragment(private var testLocation: String, private var testCount:
         binding.testCountLayout[positionAnswer()].setBackgroundResource(R.drawable.style_position_answer)
 
         binding.back.setOnClickListener {
-            dialogBack.show(requireContext())
-            dialogBack.setOnBackYesListener {
-                ads()
+            context?.let {
+                dialogBack.show(it)
+                dialogBack.setOnBackYesListener {
+                    ads()
+                }
             }
         }
         binding.nextBtn.setOnClickListener {
             next()
         }
         binding.stopTest.setOnClickListener {
-            dialogBack.show(requireContext())
-            dialogBack.setOnBackYesListener {
-                ads()
+            context?.let {
+                dialogBack.show(it)
+                dialogBack.setOnBackYesListener {
+                    ads()
+                }
             }
         }
     }
@@ -217,36 +261,14 @@ class TimerTestFragment(private var testLocation: String, private var testCount:
     }
 
     private fun random(testCount: Int): Int {
+        if (testCount <= 0) return 1
         val random = Random.nextInt(0, testCount)
-        if (random == 0) {
-            return 1
-        } else if (random == testCount + 1) {
-            return random - 1
-        }
-        return random
+        return if (random == 0) 1 else random
     }
 
     private fun ads() {
-        if (testManager.currentQuestionPosition >= 5) {
-            adsManager.showAds(requireActivity()) {
-                timer?.cancel()
-                startMainFragment(MenuFragment())
-            }
-
-            adsManager.setOnAdClickListener {
-                Toast.makeText(requireContext(), "Thank you bro !", Toast.LENGTH_SHORT).show()
-                timer?.cancel()
-                startMainFragment(MenuFragment())
-            }
-
-            adsManager.setOnAdDismissListener {
-                timer?.cancel()
-                startMainFragment(MenuFragment())
-            }
-        } else {
-            timer?.cancel()
-            startMainFragment(MenuFragment())
-        }
+        timer?.cancel()
+        handleExit()
     }
 
     private fun positionAnswer(): Int {
@@ -297,9 +319,10 @@ class TimerTestFragment(private var testLocation: String, private var testCount:
     }
 
     private fun dialogEnd() {
+        val ctx = context ?: return
         pauseTimer()
         dialogEnd.show(
-            requireContext(),
+            ctx,
             testManager.correctAnswerCount,
             testManager.wrongAnswerCount,
             testType = 1
@@ -325,5 +348,11 @@ class TimerTestFragment(private var testLocation: String, private var testCount:
             timeLeftInMillis = (testCountSize * 60 * 1000).toLong()
             timeCounter()
         }
+    }
+
+    override fun onDestroyView() {
+        adsManager.setOnAdDismissListener {}
+        adsManager.setOnAdClickListener {}
+        super.onDestroyView()
     }
 }

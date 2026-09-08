@@ -3,6 +3,7 @@ package uz.kmax.kimyotest.presentation.ui.fragment.tool
 import android.content.Intent
 import android.graphics.Color
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import uz.kmax.base.fragment.BaseFragmentWC
@@ -19,73 +20,99 @@ class SettingsFragment : BaseFragmentWC<FragmentSettingsBinding>(FragmentSetting
     lateinit var sharedPref: SharedPref
 
     override fun onViewCreated() {
-        sharedPref = SharedPref(requireContext())
-        val language : String = sharedPref.getLanguage().toString()
-        when(language){
-            "uz" ->{
-                binding.langUz.setBackgroundResource(R.drawable.style_background)
-                binding.langUzSelected.visibility = View.VISIBLE
-            }
+        updateLanguageUI()
+        updateTestModeUI()
 
-            "en"->{
-                binding.langEng.setBackgroundResource(R.drawable.style_background)
-                binding.langEnSelected.visibility = View.VISIBLE
-            }
-        }
-
-        setTestType()
-
-        binding.infinityHeartBtn.setOnClickListener {
-            sharedPref.setTestType(1)
-            setTestType()
+        binding.modeHeart.setOnClickListener {
+            sharedPref.setTestType(3)
+            updateTestModeUI()
             showSnackBar(it)
         }
 
-        binding.costHeartBtn.setOnClickListener {
-            sharedPref.setTestType(3)
-            setTestType()
+        binding.modeInfinity.setOnClickListener {
+            sharedPref.setTestType(1)
+            updateTestModeUI()
             showSnackBar(it)
         }
 
         binding.langUz.setOnClickListener {
-            sharedPref.setLanguage(getString(R.string.lang_uz),requireContext())
-            binding.langUz.setBackgroundResource(R.drawable.style_background)
-            binding.langEng.background = null
-            binding.langEnSelected.visibility = View.GONE
-            binding.langUzSelected.visibility = View.VISIBLE
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
+            context?.let { ctx ->
+                sharedPref.setLanguage(getString(R.string.lang_uz), ctx)
+                updateLanguageUI()
+                val intent = Intent(ctx, MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
         }
 
         binding.langEng.setOnClickListener {
-            sharedPref.setLanguage(getString(R.string.lang_en),requireContext())
-            binding.langEng.setBackgroundResource(R.drawable.style_background)
-            binding.langUz.background = null
-            binding.langUzSelected.visibility = View.GONE
+            context?.let { ctx ->
+                sharedPref.setLanguage(getString(R.string.lang_en), ctx)
+                updateLanguageUI()
+                val intent = Intent(ctx, MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
+        }
+
+        // Initialize Theme Switches
+        val currentMode = sharedPref.getThemeMode()
+        binding.systemThemeSwitch.isChecked = currentMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM || currentMode == -1
+        binding.nightModeSwitch.isChecked = currentMode == AppCompatDelegate.MODE_NIGHT_YES
+        binding.nightModeSwitch.isEnabled = !binding.systemThemeSwitch.isChecked
+
+        binding.systemThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            binding.nightModeSwitch.isEnabled = !isChecked
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                sharedPref.setThemeMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            } else {
+                // If system theme is off, revert to whatever nightModeSwitch says
+                val mode = if (binding.nightModeSwitch.isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+                AppCompatDelegate.setDefaultNightMode(mode)
+                sharedPref.setThemeMode(mode)
+            }
+        }
+
+        binding.nightModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (!binding.systemThemeSwitch.isChecked) {
+                val mode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+                AppCompatDelegate.setDefaultNightMode(mode)
+                sharedPref.setThemeMode(mode)
+            }
+        }
+    }
+
+    private fun updateLanguageUI() {
+        val language = sharedPref.getLanguage().toString()
+        if (language == "uz") {
+            binding.langUzSelected.visibility = View.VISIBLE
+            binding.langEnSelected.visibility = View.GONE
+        } else {
             binding.langEnSelected.visibility = View.VISIBLE
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
+            binding.langUzSelected.visibility = View.GONE
+        }
+    }
+
+    private fun updateTestModeUI() {
+        val testType = sharedPref.getTestType()
+        if (testType == 3) {
+            binding.modeHeartSelected.visibility = View.VISIBLE
+            binding.modeInfinitySelected.visibility = View.GONE
+        } else {
+            binding.modeInfinitySelected.visibility = View.VISIBLE
+            binding.modeHeartSelected.visibility = View.GONE
         }
     }
 
     private fun showSnackBar(view: View){
-        Snackbar.make(view, "Test rejimi muaffaqiyatli o'zgartirildi !", Snackbar.LENGTH_SHORT)
-            .setBackgroundTint(Color.BLUE)
-            .setTextColor(Color.WHITE)
-            .show()
-    }
-
-    private fun setTestType(){
-        val testType : Int = sharedPref.getTestType()
-        when(testType){
-            1->{
-                binding.testTypeThreeHeart.visibility = View.GONE
-                binding.testTypeInfinityHeart.visibility = View.VISIBLE
-            }
-            3->{
-                binding.testTypeThreeHeart.visibility = View.VISIBLE
-                binding.testTypeInfinityHeart.visibility = View.GONE
-            }
+        context?.let { ctx ->
+            Snackbar.make(view, "Test rejimi muvaffaqiyatli o'zgartirildi!", Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(ctx.getColor(R.color.chem_primary_light))
+                .setTextColor(Color.WHITE)
+                .show()
         }
     }
+
+
 }

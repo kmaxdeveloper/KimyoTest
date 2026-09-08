@@ -19,11 +19,16 @@
     <string name="TestCompleted">Test Yakunlandi !</string>
     <string name="CorrectAnswer">To\'g\'ri javob : </string>
     <string name="WrongAnswer">Noto\'g\'ri javob : </string>
-    <string name="welcome_1">Hush Kelibsiz !</string>
+    <string name="welcome_1">Xush Kelibsiz!</string>
+    <string name="welcome_1_desc">Kimyo olamiga qiziqarli sayohatimizni birgalikda boshlaymiz.</string>
     <string name="welcome_2">Kimyodan Testlar</string>
-    <string name="welcome_3">Kimyoviy elementlar haqida ma\'lumotlar</string>
-    <string name="welcome_4">Kimyoga oid testlar to\'plami</string>
-    <string name="welcome_5">Test yeching va \n O\'z bilimingizni sinab ko\'ring</string>
+    <string name="welcome_2_desc">Bilimingizni mustahkamlash uchun turli darajadagi testlar to\'plami.</string>
+    <string name="welcome_3">Elementlar Haqida</string>
+    <string name="welcome_3_desc">Davriy jadvaldagi har bir element haqida batafsil ma\'lumotlar.</string>
+    <string name="welcome_4">Bilimlar Hazinasi</string>
+    <string name="welcome_4_desc">Kimyoga oid eng kerakli ma\'lumotlar va qiziqarli faktlar.</string>
+    <string name="welcome_5">O\'zligingizni Namoyon Qiling</string>
+    <string name="welcome_5_desc">Testlarni yeching, natijalarni to\'plang va eng yaxshisi bo\'ling!</string>
     <string name="message">Message</string>
     <string name="update">Update</string>
     <string name="update_available">Yangi yangilanish mavjud. \n Dasturni yangilang !</string>
@@ -52,4 +57,24 @@
     <string name="watchAd">Reklama ko\'rish</string>
     <string name="attempsIsOver">Urinishlar tugadi!</string>
     <string name="exit">Chiqish</string>
+    <string name="theme_title">Dastur mavzusi :</string>
+    <string name="theme_system">Tizim</string>
+    <string name="theme_light">Ochiq</string>
+    <string name="theme_dark">To\'q</string>
+
+    <!-- Arcade -->
+    <string name="menuArcade">Arcade</string>
+    <string name="arcadeTitle">O\'yinlar</string>
+    <string name="arcadeSubtitle">Kimyo o\'rganishni qiziqarliroq qiling!</string>
+    <string name="chemistry2048Title">Kimyo 2048</string>
+    <string name="chemistry2048Desc">Kimyoviy elementlarni birlashtiring va Mendeleyev jadvalini zabt eting!</string>
+    <string name="playGame">O\'ynash</string>
+    <string name="bestScore">Eng yuqori ball</string>
+    <string name="currentScore">Hozirgi ball</string>
+    <string name="gameOver">O\'yin tugadi!</string>
+    <string name="youWon">Tabriklaymiz!</string>
+    <string name="newGame">Yangi o\'yin</string>
+    <string name="reviveGame">Davom ettirish</string>
+    <string name="reviveDesc">Reklama ko\'rib, H va He elementlarini o\'chirish orqali davom eting</string>
+    <string name="swipeToPlay">Slayd qiling!</string>
 </resources>

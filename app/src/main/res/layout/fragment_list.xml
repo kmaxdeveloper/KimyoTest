@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -11,7 +12,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
-        android:background="@color/whiteBlue">
+        android:background="?attr/colorSurface">
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/back"
             android:layout_width="42dp"
@@ -23,8 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolbar"
-            app:titleTextColor="@color/black"
-            android:background="@color/whiteBlue"
+            app:titleTextColor="?attr/colorOnSurface"
+            android:background="?attr/colorSurface"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="@string/books"/>

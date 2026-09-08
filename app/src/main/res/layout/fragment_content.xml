@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:shimmer_auto_start="true"
+        app:shimmer_duration="1200">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/shimmer_placeholder_item" />
+            <include layout="@layout/shimmer_placeholder_item" />
+            <include layout="@layout/shimmer_placeholder_item" />
+            <include layout="@layout/shimmer_placeholder_item" />
+            <include layout="@layout/shimmer_placeholder_item" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contentRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,25 @@ import java.io.FileOutputStream
 
 object SaveFiles {
 
+    // 📌 Ilova ichki xotirasiga saqlash (Eng xavfsiz usul, ruxsat talab qilmaydi)
+    fun saveFileInternally(context: Context, fileName: String, sourceFile: File): String {
+        val folder = File(context.getExternalFilesDir(null), "Kitoblar")
+        if (!folder.exists()) folder.mkdirs()
+        
+        val destinationFile = File(folder, fileName)
+        return try {
+            sourceFile.inputStream().use { input ->
+                FileOutputStream(destinationFile).use { output ->
+                    input.copyTo(output)
+                }
+            }
+            destinationFile.absolutePath
+        } catch (e: Exception) {
+            Log.e("InternalSave", "Xatolik: ${e.message}")
+            ""
+        }
+    }
+
     // 📌 API 29+ (Android 10+) uchun faylni `Downloads` ga saqlash
     @SuppressLint("NewApi")
     fun saveFileToDownloads(context: Context, fileName: String, sourceFile: File): String {
@@ -43,15 +62,24 @@ object SaveFiles {
         val customFolder = File(downloadsDir, "KimyoTest/Kitoblar")
 
         if (!customFolder.exists()) {
-            customFolder.mkdirs() // 📌 Papkani yaratish
-        }
-        val destinationFile = File(customFolder, fileName)
-        sourceFile.inputStream().use { input ->
-            FileOutputStream(destinationFile).use { output ->
-                input.copyTo(output)
+            val created = customFolder.mkdirs() // 📌 Papkani yaratish
+            if (!created && !customFolder.exists()) {
+                Log.e("LegacySave", "Papka yaratib bo'lmadi: ${customFolder.absolutePath}")
+                return ""
             }
         }
-        Log.d("LegacySave", "Fayl saqlandi: ${destinationFile.absolutePath}")
-        return destinationFile.absolutePath
+        val destinationFile = File(customFolder, fileName)
+        return try {
+            sourceFile.inputStream().use { input ->
+                FileOutputStream(destinationFile).use { output ->
+                    input.copyTo(output)
+                }
+            }
+            Log.d("LegacySave", "Fayl saqlandi: ${destinationFile.absolutePath}")
+            destinationFile.absolutePath
+        } catch (e: Exception) {
+            Log.e("LegacySave", "Faylni saqlashda xatolik: ${e.message}")
+            ""
+        }
     }
 }

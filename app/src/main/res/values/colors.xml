@@ -19,4 +19,26 @@
     <color name="color_item_menu_default">#4CAF50</color>
     <color name="color_splash">#D7E8B475</color>
     <color name="color_app">#B8BCC5</color>
+
+    <!-- ============================================ -->
+    <!-- Kimyo Light Theme — "Laboratoriya" -->
+    <!-- ============================================ -->
+    <color name="chem_background_light">#F0F7FF</color>
+    <color name="chem_surface_light">#FFFFFF</color>
+    <color name="chem_primary_light">#1565C0</color>
+    <color name="chem_toolbar_light">#0D47A1</color>
+    <color name="chem_on_surface_light">#0D1B2A</color>
+    <color name="chem_outline_light">#90A4AE</color>
+    <color name="chem_surface_variant_light">#E3F2FD</color>
+
+    <!-- ============================================ -->
+    <!-- Kimyo Dark Theme — "Tungi Laboratoriya" -->
+    <!-- ============================================ -->
+    <color name="chem_background_dark">#080C15</color>
+    <color name="chem_surface_dark">#121A2D</color>
+    <color name="chem_primary_dark">#58A6FF</color>
+    <color name="chem_toolbar_dark">#0D1F3C</color>
+    <color name="chem_on_surface_dark">#E8F0FE</color>
+    <color name="chem_outline_dark">#3D4D6F</color>
+    <color name="chem_surface_variant_dark">#1D273F</color>
 </resources>

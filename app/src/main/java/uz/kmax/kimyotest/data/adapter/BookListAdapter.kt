@@ -18,7 +18,12 @@ class BookListAdapter :
         binding.bookTitle.text = item.bookTitle
         binding.bookSize.text = "Book Size : ${item.bookSize}"
         binding.bookRelease.text = "Book Release : ${item.bookRelease}"
+        
+        binding.itemImage.tag = item.bookLocation
+        binding.itemImage.setImageBitmap(null)
+        
         setDataToView(binding, item.bookLocation)
+        
         if (item.bookVisibility == 1) {
             binding.contentNewOld.visibility = View.VISIBLE
         } else {
@@ -36,13 +41,15 @@ class BookListAdapter :
 
         imageRef.getBytes(1024 * 1024)
             .addOnSuccessListener { image ->
-                binding.itemImage.setImageBitmap(
-                    BitmapFactory.decodeByteArray(
-                        image,
-                        0,
-                        image.size
+                if (binding.itemImage.tag == path) {
+                    binding.itemImage.setImageBitmap(
+                        BitmapFactory.decodeByteArray(
+                            image,
+                            0,
+                            image.size
+                        )
                     )
-                )
+                }
             }
     }
 

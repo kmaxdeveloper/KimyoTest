@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="10dp"
+    app:cardBackgroundColor="#E3F2FD"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="#BBDEFB"
+    app:strokeWidth="1.5dp">
+
+    <FrameLayout
+        android:id="@+id/native_ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Reklama belgisi - Tepada chapda (Google talabi bo'yicha aniq joylashuv) -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/ad_attribution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#E0E0E0"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:text="Reklama"
+                android:textColor="#757575"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ad_app_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ad_attribution"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
+                tools:src="@drawable/image_new" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ad_app_icon"
+                app:layout_constraintTop_toTopOf="@id/ad_app_icon">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/ad_headline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/madimi"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#212121"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Reklama Sarlavhasi" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/ad_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="#616161"
+                    android:textSize="12sp"
+                    tools:text="Bu reklama ekanligi foydalanuvchiga aniq ko'rinishi shart." />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ad_call_to_action"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="6dp"
+                    android:paddingHorizontal="16dp"
+                    android:textAllCaps="false"
+                    android:textSize="11sp"
+                    app:cornerRadius="8dp"
+                    tools:text="O'rnatish" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- O'ng burchakdagi ADS badge (qo'shimcha himoya) -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADS"
+                android:textColor="#BDBDBD"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</com.google.android.material.card.MaterialCardView>

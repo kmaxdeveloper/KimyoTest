@@ -1,157 +1,419 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="?attr/colorSurface">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/madimi"
-            android:text="@string/lang"
-            android:textColor="@color/black"
-            android:textSize="36sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lang_uz"
+            <!-- Section: Appearance -->
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/madimi"
+                android:text="Ko'rinish"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="65dp"
-                    android:layout_height="60dp"
-                    app:srcCompat="@drawable/image_uzb" />
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/madimi"
-                    android:text="@string/lang_uzb"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="4dp"
-                    android:textSize="22sp" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/langUzSelected"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/image_ok_32px"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lang_eng"
+                    <!-- System Theme -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iconSystemTheme"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_settings" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/titleSystemTheme"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="@font/madimi"
+                            android:text="Tizim mavzusi"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toStartOf="@+id/systemThemeSwitch"
+                            app:layout_constraintStart_toEndOf="@id/iconSystemTheme"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Telefon mavzusiga moslashish"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toEndOf="@id/titleSystemTheme"
+                            app:layout_constraintStart_toStartOf="@id/titleSystemTheme"
+                            app:layout_constraintTop_toBottomOf="@id/titleSystemTheme" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/systemThemeSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="52dp"
+                        android:background="?attr/colorOutlineVariant" />
+
+                    <!-- Night Mode -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iconNightMode"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_timer" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/titleNightMode"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="@font/madimi"
+                            android:text="Tungi rejim"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toStartOf="@+id/nightModeSwitch"
+                            app:layout_constraintStart_toEndOf="@id/iconNightMode"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Ko'zlar uchun qulay rejim"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toEndOf="@id/titleNightMode"
+                            app:layout_constraintStart_toStartOf="@id/titleNightMode"
+                            app:layout_constraintTop_toBottomOf="@id/titleNightMode" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/nightModeSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section: Test Mode -->
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/madimi"
+                android:text="Test Rejimi"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="65dp"
-                    android:layout_height="60dp"
-                    app:srcCompat="@drawable/image_eng" />
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:fontFamily="@font/madimi"
-                    android:text="@string/lang_eng"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/langEnSelected"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/image_ok_32px"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/testSelectMode"
-            android:textColor="@color/black"
-            android:fontFamily="@font/madimi"
-            android:textSize="24sp"
-            android:layout_marginTop="16dp"/>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center">
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/infinityHeartBtn"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <!-- Heart Test (3 Hearts) -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/mode_heart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="12dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iconHeartMode"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_heart" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/titleHeartMode"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/madimi"
+                            android:text="3 ta yurakli"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toStartOf="@+id/modeHeartSelected"
+                            app:layout_constraintStart_toEndOf="@id/iconHeartMode"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="3 ta xatodan so'ng test tugaydi"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toEndOf="@id/titleHeartMode"
+                            app:layout_constraintStart_toStartOf="@id/titleHeartMode"
+                            app:layout_constraintTop_toBottomOf="@id/titleHeartMode" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/modeHeartSelected"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_ok_32px" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="52dp"
+                        android:background="?attr/colorOutlineVariant" />
+
+                    <!-- Infinity Test -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/mode_infinity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="12dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iconInfinityMode"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_infinity_32" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/titleInfinityMode"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/madimi"
+                            android:text="Cheksiz rejim"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toStartOf="@+id/modeInfinitySelected"
+                            app:layout_constraintStart_toEndOf="@id/iconInfinityMode"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Xatolar cheklanmagan"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toEndOf="@id/titleInfinityMode"
+                            app:layout_constraintStart_toStartOf="@id/titleInfinityMode"
+                            app:layout_constraintTop_toBottomOf="@id/titleInfinityMode" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/modeInfinitySelected"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_ok_32px" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section: Language -->
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="@drawable/style_background"
-                android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="start"
-                    app:srcCompat="@drawable/image_heart" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    app:srcCompat="@drawable/image_infinity_64px"/>
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/testTypeInfinityHeart"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
-                    app:srcCompat="@drawable/image_ok_32px"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/costHeartBtn"
-                android:layout_width="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/madimi"
+                android:text="Til tanlash"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:layout_marginStart="4dp"
-                android:background="@drawable/style_background"
-                android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="start"
-                    app:srcCompat="@drawable/image_heart" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    app:srcCompat="@drawable/image_heart"/>
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    app:srcCompat="@drawable/image_heart"/>
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/testTypeThreeHeart"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/image_ok_32px"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_marginBottom="24dp"
+                android:layout_marginHorizontal="4dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <!-- Uzbek -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/lang_uz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="12dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imgUz"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_uzb" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/madimi"
+                            android:text="O'zbekcha"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/langUzSelected"
+                            app:layout_constraintStart_toEndOf="@id/imgUz"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/langUzSelected"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_ok_32px" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="48dp"
+                        android:background="?attr/colorOutlineVariant" />
+
+                    <!-- English -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/lang_eng"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="12dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imgEn"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_eng" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/madimi"
+                            android:text="English"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/langEnSelected"
+                            app:layout_constraintStart_toEndOf="@id/imgEn"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/langEnSelected"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/image_ok_32px" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.card.MaterialCardView>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

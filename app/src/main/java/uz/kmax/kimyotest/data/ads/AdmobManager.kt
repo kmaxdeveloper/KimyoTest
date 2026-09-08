@@ -10,8 +10,11 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.OnUserEarnedRewardListener
+import com.google.android.gms.ads.VideoOptions
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 
@@ -25,6 +28,7 @@ class AdmobManager(private var context: Context) {
     private val adShowInterval: Long = 30000
     private val AD_UNIT_ID = "ca-app-pub-4664801446868642/5382958969"
     private val AD_UNIT_ID_REWARDED = "ca-app-pub-4664801446868642/6492575246"
+    private val AD_UNIT_ID_NATIVE = "ca-app-pub-4664801446868642/8896842613" // Placeholder ID
 
     private var onAdDismissListener: (() -> Unit)? = null
     private var onAdClickListener: (() -> Unit)? = null
@@ -71,6 +75,10 @@ class AdmobManager(private var context: Context) {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     isRewardedAdLoading = false
                     rewardedAd = null
+                    // 5 soniyadan keyin qayta yuklashga urinish
+                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                        loadRewardedAds()
+                    }, 5000)
                 }
             },
         )
@@ -112,6 +120,7 @@ class AdmobManager(private var context: Context) {
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 interstitialAd = null
                 loadInterstitialAd()
+                onAdDismissListener?.invoke()
             }
 
             override fun onAdShowedFullScreenContent() {
@@ -126,26 +135,27 @@ class AdmobManager(private var context: Context) {
             object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     rewardedAd = null
+                    loadRewardedAds()
                     onRewardedListener?.invoke(1)
                 }
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                     rewardedAd = null
+                    loadRewardedAds()
                     onRewardedListener?.invoke(0)
                 }
 
                 override fun onAdShowedFullScreenContent() {
                     rewardedAd = null
+                    loadRewardedAds()
                     onRewardedListener?.invoke(2)
                 }
 
                 override fun onAdImpression() {
-                    rewardedAd = null
                     onRewardedListener?.invoke(3)
                 }
 
                 override fun onAdClicked() {
-                    // Called when an ad is clicked.
                     onRewardedListener?.invoke(4)
                 }
             }
@@ -154,6 +164,7 @@ class AdmobManager(private var context: Context) {
     fun showInterstitialAd(activity: Activity,onResultShowAds: ((boolean:Boolean) -> Unit)? = null) {
         if (interstitialAd != null) {
             interstitialAd?.show(activity)
+            onResultShowAds?.invoke(true)
         } else {
             onResultShowAds?.invoke(false)
         }
@@ -194,5 +205,23 @@ class AdmobManager(private var context: Context) {
 
     fun admobRewardedAdsIsReady() : Boolean {
         return rewardedAd != null
+    }
+
+    fun loadNativeAd(onLoaded: (NativeAd?) -> Unit) {
+        val adLoader = com.google.android.gms.ads.AdLoader.Builder(context, AD_UNIT_ID_NATIVE)
+            .forNativeAd { nativeAd ->
+                onLoaded(nativeAd)
+            }
+            .withAdListener(object : com.google.android.gms.ads.AdListener() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    onLoaded(null)
+                }
+            })
+            .withNativeAdOptions(NativeAdOptions.Builder()
+                .setVideoOptions(VideoOptions.Builder().setStartMuted(true).build())
+                .build())
+            .build()
+
+        adLoader.loadAd(AdRequest.Builder().build())
     }
 }

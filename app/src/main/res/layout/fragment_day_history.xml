@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -12,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
-        android:background="@color/whiteBlue">
+        android:background="?attr/colorSurface">
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/back"
             android:layout_width="42dp"
@@ -24,8 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolbar"
-            app:titleTextColor="@color/black"
-            android:background="@color/whiteBlue"
+            app:titleTextColor="?attr/colorOnSurface"
+            android:background="?attr/colorSurface"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="Kun Tarixi"/>
@@ -43,8 +44,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
-        android:tint="@color/blue"
+        android:tint="?attr/colorPrimary"
         app:maxImageSize="30dp"
-        android:backgroundTint="@color/white_blue"
+        android:backgroundTint="?attr/colorSurface"
         android:src="@drawable/calendar_24px"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,10 +10,11 @@ class SharedPref(var context: Context) {
 
     private var preferences: SharedPreferences
 
-    private lateinit var editor: SharedPreferences.Editor
+    private var editor: SharedPreferences.Editor
 
     init {
         preferences = context.getSharedPreferences("KIMYO_TEST", MODE_PRIVATE)
+        editor = preferences.edit()
     }
 
     fun getLanguage() = preferences.getString("LANG", "uz")
@@ -23,7 +24,6 @@ class SharedPref(var context: Context) {
     }
 
     fun setLanguage(lang: String, context: Context) {
-        editor = preferences.edit()
         editor.putString("LANG", lang)
         editor.apply()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -54,7 +54,6 @@ class SharedPref(var context: Context) {
     }
 
     fun setWelcomeStatus(resume : Boolean) {
-        editor = preferences.edit()
         editor.putBoolean("WELCOME_APP",resume)
         editor.apply()
     }
@@ -64,7 +63,6 @@ class SharedPref(var context: Context) {
     fun getWelcomeStatus() = preferences.getBoolean("WELCOME_APP",true)
 
     fun setLangStatus(lang : Boolean) {
-        editor = preferences.edit()
         editor.putBoolean("LANG_APP",lang)
         editor.apply()
     }
@@ -72,7 +70,6 @@ class SharedPref(var context: Context) {
     fun getLangStatus() = preferences.getBoolean("LANG_APP", true)
 
     fun setUpdateStatus(update : Boolean){
-        editor = preferences.edit()
         editor.putBoolean("UPDATE_AVAILABLE",update)
         editor.apply()
     }
@@ -80,18 +77,45 @@ class SharedPref(var context: Context) {
     fun getUpdateAvailable() = preferences.getBoolean("UPDATE_AVAILABLE",false)
 
     fun setTestType(type : Int){
-        editor = preferences.edit()
         editor.putInt("TEST_TYPE",type)
         editor.apply()
     }
 
-    fun getTestType() = preferences.getInt("TEST_TYPE",1)
+    fun getTestType() = preferences.getInt("TEST_TYPE",3)
 
     fun setChooseTestType(chooseStatus : Boolean){
-        editor = preferences.edit()
         editor.putBoolean("CHOOSE_TEST_TYPE",chooseStatus)
         editor.apply()
     }
 
-    fun getChooseTestType() = preferences.getBoolean("CHOOSE_TEST_TYPE",true)
+    fun getChooseTestType() = preferences.getBoolean("CHOOSE_TEST_TYPE",false)
+
+    fun setThemeMode(mode: Int) {
+        preferences.edit().putInt(THEME_MODE, mode).apply()
+    }
+
+    fun getThemeMode(): Int {
+        return preferences.getInt(THEME_MODE, -1) // -1 is AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM equivalent for "default"
+    }
+
+    /** Umumiy int qiymatlarini saqlash va olish (o'yinlar va boshqa xususiyatlar uchun) */
+    fun saveInt(key: String, value: Int) {
+        preferences.edit().putInt(key, value).apply()
+    }
+
+    fun getInt(key: String, default: Int = 0): Int {
+        return preferences.getInt(key, default)
+    }
+
+    fun saveString(key: String, value: String) {
+        preferences.edit().putString(key, value).apply()
+    }
+
+    fun getString(key: String, default: String = ""): String {
+        return preferences.getString(key, default) ?: default
+    }
+
+    companion object {
+        private const val THEME_MODE = "theme_mode"
+    }
 }

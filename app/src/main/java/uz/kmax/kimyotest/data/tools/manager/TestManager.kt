@@ -16,32 +16,38 @@ class TestManager() {
     }
 
     fun getQuestion(): String {
+        if (testQuestionsList.isEmpty() || currentQuestionPosition !in testQuestionsList.indices) return ""
         return testQuestionsList[currentQuestionPosition].question
     }
 
     fun getAnswer(): String {
+        if (testQuestionsList.isEmpty() || currentQuestionPosition !in testQuestionsList.indices) return ""
         return testQuestionsList[currentQuestionPosition].answer
     }
 
     fun getVariantA(): String {
+        if (testQuestionsList.isEmpty() || currentQuestionPosition !in testQuestionsList.indices) return ""
         return testQuestionsList[currentQuestionPosition].variantA
     }
 
     fun getPercent(): Double {
-        var percent = 0.0
-        percent = ((100 / getQuestionSize()) * correctAnswerCount).toDouble()
-        return percent
+        val size = getQuestionSize()
+        if (size == 0) return 0.0
+        return ((100.0 / size) * correctAnswerCount)
     }
 
     fun getVariantB(): String {
+        if (testQuestionsList.isEmpty() || currentQuestionPosition !in testQuestionsList.indices) return ""
         return testQuestionsList[currentQuestionPosition].variantB
     }
 
     fun getVariantC(): String {
+        if (testQuestionsList.isEmpty() || currentQuestionPosition !in testQuestionsList.indices) return ""
         return testQuestionsList[currentQuestionPosition].variantC
     }
 
     fun getVariantD(): String {
+        if (testQuestionsList.isEmpty() || currentQuestionPosition !in testQuestionsList.indices) return ""
         return testQuestionsList[currentQuestionPosition].variantD
     }
 
@@ -70,6 +76,10 @@ class TestManager() {
         return false
     }
 
-    fun answerWithPercent() = correctAnswerCount * 100 / getQuestionSize()
+    fun answerWithPercent(): Int {
+        val size = getQuestionSize()
+        if (size == 0) return 0
+        return correctAnswerCount * 100 / size
+    }
 
 }

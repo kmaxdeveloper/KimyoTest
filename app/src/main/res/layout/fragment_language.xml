@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -14,7 +15,7 @@
             android:layout_height="wrap_content"
             android:text="@string/lang"
             android:textSize="36sp"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:fontFamily="@font/madimi"
             android:layout_marginBottom="4dp"/>
         <androidx.appcompat.widget.AppCompatImageView

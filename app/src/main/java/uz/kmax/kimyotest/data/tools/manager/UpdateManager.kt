@@ -3,6 +3,7 @@ package uz.kmax.kimyotest.data.tools.manager
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -31,12 +32,9 @@ class UpdateManager(context: Context) {
     private var updateTypeFlexible = AppUpdateType.FLEXIBLE
     private var type = 1
 
-    fun init(context: Context) {
+    fun init(context: Context, launcher: ActivityResultLauncher<IntentSenderRequest>) {
         appUpdateManager = AppUpdateManagerFactory.create(context)
-    }
-
-    fun initLauncher(activity: FragmentActivity){
-        initResultLauncher(activity = activity)
+        this.activityResultLauncher = launcher
     }
 
     fun update(upType: Int) {
@@ -75,6 +73,9 @@ class UpdateManager(context: Context) {
             }
         }.addOnCanceledListener {
             onNotUpdateListener?.invoke()
+        }.addOnFailureListener {
+            Log.e("UpdateManager", "Google Play Update Check Failed: ${it.message}")
+            onNotUpdateListener?.invoke()
         }
     }
 
@@ -96,6 +97,9 @@ class UpdateManager(context: Context) {
                 onNotUpdateListener?.invoke()
             }
         }.addOnCanceledListener {
+            onNotUpdateListener?.invoke()
+        }.addOnFailureListener {
+            Log.e("UpdateManager", "Google Play Update Check Failed: ${it.message}")
             onNotUpdateListener?.invoke()
         }
     }
@@ -135,24 +139,6 @@ class UpdateManager(context: Context) {
 //            transAction()
 //        }
 //    }
-
-    fun initResultLauncher(activity: FragmentActivity){
-        activityResultLauncher = activity.registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()){result->
-            if (result.resultCode != FragmentActivity.RESULT_OK){
-                Log.d("TEST", "Result NOT OK")
-                transAction()
-            }else if (result.resultCode == FragmentActivity.RESULT_CANCELED){
-                Log.d("TEST", "Result Cancelled")
-                transAction()
-            }else if (result.resultCode == FragmentActivity.RESULT_OK){
-                Log.d("TEST", "Result OK")
-                onNotUpdateListener?.invoke()
-            }else{
-                Log.d("TEST", "Result Else")
-                transAction()
-            }
-        }
-    }
 
     fun updateNow(){
         appUpdateManager.completeUpdate()

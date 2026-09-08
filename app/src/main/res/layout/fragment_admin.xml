@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:background="?attr/colorSurface"
     android:id="@+id/AdminDrawerLayout">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -29,7 +29,7 @@
                 android:layout_gravity="center"
                 android:text="Admin bilan"
                 android:textSize="24sp"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/pre_hear_regular"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.AppCompatTextView
@@ -37,7 +37,7 @@
             android:layout_height="4dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:background="@color/blue"/>
+            android:background="?attr/colorPrimary"/>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,13 +53,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="3dp"
                 android:layout_marginStart="2dp"
-                android:background="@color/blue"/>
+                android:background="?attr/colorPrimary"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/AdminGmail"
                 android:layout_marginStart="3dp"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/pre_hear_regular"
                 android:textSize="24sp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -68,7 +68,7 @@
             android:layout_height="4dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:background="@color/blue"/>
+            android:background="?attr/colorPrimary"/>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,13 +84,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="3dp"
-                android:background="@color/blue"/>
+                android:background="?attr/colorPrimary"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/AdminTelegram"
                 android:textSize="24sp"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/pre_hear_regular"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -99,7 +99,7 @@
             android:layout_height="4dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:background="@color/blue"/>
+            android:background="?attr/colorPrimary"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

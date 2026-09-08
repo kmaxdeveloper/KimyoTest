@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_header"
-    android:background="@color/appTheme"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="?attr/colorPrimaryContainer"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:padding="24dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/navHeaderImageView"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        app:srcCompat="@drawable/app_logo"
-        android:background="@color/white"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="?attr/colorSurface"
+        android:padding="8dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize20Percent"
+        app:srcCompat="@drawable/app_logo2" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/navHeaderTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:textColor="@color/black"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/madimi"
         android:text="@string/app_name"
-        android:textSize="28sp"
-        android:layout_marginStart="2dp"
-        android:textStyle="bold"
-        android:fontFamily="@font/pre_hear_regular"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textColor="?attr/colorOnPrimaryContainer"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.7"
+        android:fontFamily="@font/madimi"
+        android:text="Premium Edition"
+        android:textColor="?attr/colorOnPrimaryContainer"
+        android:textSize="12sp" />
+
 </androidx.appcompat.widget.LinearLayoutCompat>

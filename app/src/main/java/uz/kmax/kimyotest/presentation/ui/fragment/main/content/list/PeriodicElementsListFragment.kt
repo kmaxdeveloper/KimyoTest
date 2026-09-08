@@ -1,5 +1,6 @@
 package uz.kmax.kimyotest.presentation.ui.fragment.main.content.list
 
+import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import uz.kmax.base.fragment.BaseFragmentWC
@@ -13,7 +14,21 @@ import uz.kmax.kimyotest.domain.models.main.MenuContentData
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PeriodicElementsListFragment(var location : String) : BaseFragmentWC<FragmentListBinding>(FragmentListBinding::inflate) {
+class PeriodicElementsListFragment : BaseFragmentWC<FragmentListBinding>(FragmentListBinding::inflate) {
+
+    private var location: String = ""
+
+    companion object {
+        private const val ARG_LOCATION = "location"
+
+        fun newInstance(location: String): PeriodicElementsListFragment {
+            val fragment = PeriodicElementsListFragment()
+            val args = Bundle()
+            args.putString(ARG_LOCATION, location)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     private var adapter = PeriodicElementsAdapter()
     private var firebaseManager = FirebaseManager()
@@ -26,18 +41,20 @@ class PeriodicElementsListFragment(var location : String) : BaseFragmentWC<Fragm
     lateinit var adsManager: AdsManager
 
     override fun onViewCreated() {
-
+        location = arguments?.getString(ARG_LOCATION) ?: ""
         language = shared.getLanguage().toString()
 
         binding.bookRecycleView.layoutManager = LinearLayoutManager(requireContext())
-//        binding.bookRecycleView.adapter = adapter
+        // binding.bookRecycleView.adapter = adapter // Adapter is empty, skipping for now
 
         loadDataFromFirebase()
     }
 
     private fun loadDataFromFirebase() {
-        firebaseManager.observeList("Content/$language/$location/", ElementsListData::class.java){
-
+        firebaseManager.readList("Content/$language/$location/", ElementsListData::class.java){ list ->
+            if (isAdded && !isStateSaved && list != null) {
+                // adapter.setItems(list)
+            }
         }
     }
 }

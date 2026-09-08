@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +37,7 @@
             android:text="@string/no_connection"
             android:textSize="40sp"
             android:fontFamily="@font/pre_hear_regular"
-            android:textColor="@color/black"/>
+            android:textColor="?attr/colorOnSurface"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linear"
@@ -54,13 +55,13 @@
                 android:id="@+id/tryAgain"
                 android:layout_width="170dp"
                 android:layout_height="70dp"
-                android:drawableTint="@color/black"
+                android:drawableTint="?attr/colorOnSurface"
                 android:drawableStart="@drawable/image_return2"
                 android:text="@string/dialog_return"
                 android:textSize="20sp"
                 android:padding="20dp"
                 android:layout_margin="2dp"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:background="@drawable/style_btn"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -71,9 +72,9 @@
                 android:padding="20dp"
                 android:drawableStart="@drawable/image_exit"
                 android:text="@string/close"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_margin="2dp"
-                android:drawableTint="@color/black"
+                android:drawableTint="?attr/colorOnSurface"
                 android:textSize="20sp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>

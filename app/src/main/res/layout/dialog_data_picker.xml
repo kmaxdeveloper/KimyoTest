@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="?attr/colorSurface">
     <DatePicker
         android:id="@+id/datePicker"
         android:layout_width="wrap_content"
@@ -13,9 +13,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:headerBackground="@color/yellow"
+        android:headerBackground="?attr/colorPrimary"
         android:theme="@android:style/Widget.Material.DatePicker"
-        android:calendarTextColor="@color/black" />
+        android:calendarTextColor="?attr/colorOnSurface" />
     <Button
         android:id="@+id/return2"
         android:layout_width="wrap_content"

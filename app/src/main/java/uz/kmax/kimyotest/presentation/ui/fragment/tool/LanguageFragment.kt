@@ -17,17 +17,23 @@ class LanguageFragment : BaseFragmentWC<FragmentLanguageBinding>(FragmentLanguag
 
     override fun onViewCreated() {
         binding.selectLangEn.setOnClickListener {
-            sharedPref.setLanguage(getString(R.string.lang_en),requireContext())
-            sharedPref.setLangStatus(false)
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
+            context?.let { ctx ->
+                sharedPref.setLanguage(getString(R.string.lang_en), ctx)
+                sharedPref.setLangStatus(false)
+                val intent = Intent(ctx, MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
         }
 
         binding.selectLangUz.setOnClickListener {
-            sharedPref.setLanguage(getString(R.string.lang_uz),requireContext())
-            sharedPref.setLangStatus(false)
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
+            context?.let { ctx ->
+                sharedPref.setLanguage(getString(R.string.lang_uz), ctx)
+                sharedPref.setLangStatus(false)
+                val intent = Intent(ctx, MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
         }
     }
 }

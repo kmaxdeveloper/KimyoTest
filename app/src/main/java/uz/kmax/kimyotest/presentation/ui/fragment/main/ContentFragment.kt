@@ -1,6 +1,7 @@
 package uz.kmax.kimyotest.presentation.ui.fragment.main
 
 import android.graphics.Color
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -51,28 +52,54 @@ class ContentFragment : BaseFragmentWC<FragmentContentBinding>(FragmentContentBi
     }
 
     private fun getContentData() {
-        firebaseManager.observeList("AllContent/$language", MenuContentData::class.java){
-            if (it != null){
-                adapter.setItems(filter.filterContent(it))
-            }
+        binding.shimmerView.startShimmer()
+        binding.shimmerView.visibility = View.VISIBLE
+        binding.contentRecycleView.visibility = View.GONE
+        
+        val startTime = System.currentTimeMillis()
+        
+        firebaseManager.readList("AllContent/$language", MenuContentData::class.java){
+            val timePassed = System.currentTimeMillis() - startTime
+            val delay = if (timePassed < 2000) 2000 - timePassed else 0L
+
+            android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                if (isAdded) {
+                    binding.shimmerView.stopShimmer()
+                    binding.shimmerView.visibility = View.GONE
+                    binding.contentRecycleView.visibility = View.VISIBLE
+                    
+                    if (it != null){
+                        adapter.setItems(filter.filterContent(it))
+                    }
+                }
+            }, delay)
         }
     }
 
     private fun ads(type: Int, contentLocation: String) {
+        val currentActivity = activity ?: return
         if (type == 2) {
-            adsManager.showAds(requireActivity()) {
-                replace(type, contentLocation)
+            adsManager.showAds(currentActivity) { showed ->
+                if (!showed) {
+                    if (isAdded && !isStateSaved) {
+                        replace(type, contentLocation)
+                    }
+                }
             }
-        }else{
-            replace(type,contentLocation)
+        } else {
+            replace(type, contentLocation)
         }
 
         adsManager.setOnAdClickListener {
-            Toast.makeText(requireContext(), "Thank You !", Toast.LENGTH_SHORT).show()
+            context?.let {
+                Toast.makeText(it, "Thank You !", Toast.LENGTH_SHORT).show()
+            }
         }
 
         adsManager.setOnAdDismissListener {
-            replace(type, contentLocation)
+            if (isAdded && !isStateSaved) {
+                replace(type, contentLocation)
+            }
         }
     }
 
@@ -85,7 +112,7 @@ class ContentFragment : BaseFragmentWC<FragmentContentBinding>(FragmentContentBi
                 replaceFragment(PeriodicTableFragment())
             }
             3->{
-                replaceFragment(PeriodicElementsListFragment(location))
+                replaceFragment(PeriodicElementsListFragment.newInstance(location))
             }
             4->{
                 replaceFragment(FormulaListFragment())
@@ -97,5 +124,11 @@ class ContentFragment : BaseFragmentWC<FragmentContentBinding>(FragmentContentBi
                     .show()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        adsManager.setOnAdDismissListener {}
+        adsManager.setOnAdClickListener {}
+        super.onDestroyView()
     }
 }
